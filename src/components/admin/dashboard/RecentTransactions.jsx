@@ -25,10 +25,11 @@ export default function RecentTransactions({ transactions = [] }) {
           </div>
         ) : (
           <>
-            {paginatedItems.map((transaction) => {
+            {paginatedItems.map((transaction, idx) => {
               const amount = Number(transaction.amount || transaction.total || 0)
+              const itemKey = transaction.id || `${transaction.description || 'sale'}-${transaction.date || 'date'}-${idx}`
               return (
-                <div key={transaction.id || `${transaction.description}-${transaction.date}-${Math.random()}`} className="flex flex-col gap-1 rounded-3xl bg-slate-50 p-4">
+                <div key={itemKey} className="flex flex-col gap-1 rounded-3xl bg-slate-50 p-4">
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-sm font-semibold text-slate-950">
                       {transaction.description || `Sale to ${transaction.customerName || 'Customer'}`}
