@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+.shadow-sm {
+  box-shadow: 0 16px 40px -20px rgba(15, 23, 42, 0.25), 0 6px 16px -8px rgba(15, 23, 42, 0.18);
+}
+
+.admin-sidebar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.admin-sidebar-scroll,
+.sales-sidebar-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.admin-sidebar-scroll::-webkit-scrollbar,
+.sales-sidebar-scroll::-webkit-scrollbar {
+  display: none;
+}
