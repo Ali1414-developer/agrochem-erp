@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ShieldCheck, Briefcase } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import AuthInput from '../components/auth/AuthInput'
 import PasswordInput from '../components/auth/PasswordInput'
@@ -57,6 +58,23 @@ export default function LoginPage() {
     }
   }
 
+  const handleAutofill = (role) => {
+    if (role === 'admin') {
+      setForm((prev) => ({
+        ...prev,
+        email: 'admin@erp.com',
+        password: 'admin@123',
+      }))
+    } else if (role === 'sales') {
+      setForm((prev) => ({
+        ...prev,
+        email: 'salesman@erp.com',
+        password: 'salesman@123',
+      }))
+    }
+    setFieldErrors({})
+  }
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-900">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(52,211,153,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.18),transparent_20%),linear-gradient(180deg,#031825,#071b2d_45%,#0a1f38)]" />
@@ -68,7 +86,40 @@ export default function LoginPage() {
             <p className="mx-auto max-w-xs text-sm leading-6 text-slate-600">Sign in to continue to your dashboard</p>
           </div>
 
-          <form className="mt-10 space-y-6" onSubmit={handleSubmit} noValidate>
+          <div className="mt-6 rounded-2xl border border-slate-200/80 bg-white/80 p-3 sm:p-4 shadow-sm backdrop-blur-sm">
+            <p className="text-center text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2.5">
+              Quick Demo Access (Click to Auto-fill)
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <button
+                type="button"
+                onClick={() => handleAutofill('admin')}
+                className="group flex flex-col items-start gap-1 rounded-xl border border-emerald-200 bg-emerald-50/70 p-2.5 text-left transition hover:bg-emerald-100 hover:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-400 active:scale-[0.98] cursor-pointer"
+              >
+                <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-800">
+                  <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                  Admin Login
+                </div>
+                <span className="text-[11px] text-slate-600">admin@erp.com</span>
+                <span className="text-[10px] text-slate-400 font-mono">Pass: admin@123</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleAutofill('sales')}
+                className="group flex flex-col items-start gap-1 rounded-xl border border-blue-200 bg-blue-50/70 p-2.5 text-left transition hover:bg-blue-100 hover:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 active:scale-[0.98] cursor-pointer"
+              >
+                <div className="flex items-center gap-1.5 text-xs font-bold text-blue-800">
+                  <Briefcase className="h-4 w-4 text-blue-600" />
+                  Sales Login
+                </div>
+                <span className="text-[11px] text-slate-600">salesman@erp.com</span>
+                <span className="text-[10px] text-slate-400 font-mono">Pass: salesman@123</span>
+              </button>
+            </div>
+          </div>
+
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit} noValidate>
             <AuthInput
               label="Email Address"
               name="email"
